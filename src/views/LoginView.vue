@@ -1,39 +1,38 @@
 <template>
   <LoadingView :active="isLoading"></LoadingView>
-  <div class="container mt-5">
+  <section class="my-5 d-flex justify-content-center align-items-center">
+    <div class="container">
     <form class="row justify-content-center"
         @submit.prevent="signIn">
         <div class="col-md-6">
-            <h1 class="h3 mb-3 font-weight-normal">請先登入</h1>
+            <h1 class="h3 mb-3 font-weight-normal">管理者平台</h1>
             <div class="mb-2">
-            <label for="inputEmail" class="sr-only">Email address</label>
-            <input
-                type="email"
+            <label for="inputEmail" class="sr-only">Email</label>
+            <input type="email"
                 id="inputEmail"
                 class="form-control"
-                placeholder="Email address"
+                placeholder="請輸入Email"
                 required
                 autofocus
-                v-model="user.username"
-            />
+                v-model="user.username"/>
             </div>
             <div class="mb-2">
-            <label for="inputPassword" class="sr-only">Password</label>
-            <input
-                type="password"
+            <label for="inputPassword" class="sr-only">密碼</label>
+            <input type="password"
                 id="inputPassword"
                 class="form-control"
-                placeholder="Password"
+                placeholder="請輸入密碼"
                 required
-                v-model="user.password"
-            />
+                v-model="user.password"/>
             </div>
             <div class="text-end mt-4">
-            <button class="btn btn-lg btn-primary btn-block" type="submit">登入</button>
+              <button @click="backToIndex" class="btn btn-primary btn-block me-2">返回</button>
+              <button @click="signIn" class="btn btn-primary btn-block">登入</button>
             </div>
         </div>
       </form>
   </div>
+  </section>
 </template>
 
 <script>
@@ -59,9 +58,16 @@ export default {
             const token = res.data.token
             const expired = res.data.expired
             document.cookie = `hexToken=${token};expires=${new Date(expired)};` // 存取cookie
+            this.$httpMessageStatus(res, '登入')
             this.$router.push('/dashboard/products')
+          } else {
+            this.isLoading = false
+            this.$httpMessageStatus(res, '登入')
           }
         })
+    },
+    backToIndex () {
+      this.$router.push('/')
     }
   }
 }

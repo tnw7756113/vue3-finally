@@ -2,7 +2,7 @@
   <LoadingView :active="isLoading"></LoadingView>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Navbar</a>
+            <a class="navbar-brand text-green" href="#">菓然</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
             </button>
@@ -21,9 +21,6 @@
                   <a class="nav-link" href="#" @click.prevent="logout">登出</a>
                 </li>
             </ul>
-            <span class="navbar-text">
-                Navbar text with an inline element
-            </span>
             </div>
         </div>
     </nav>
@@ -43,7 +40,7 @@ export default {
       this.$http.post(api, this.user).then((res) => {
         this.isLoading = false
         console.log(res)
-        this.$router.push('/login')
+        this.$router.push('/')
       })
     }
   }

@@ -39,3 +39,8 @@
 @import "~bootstrap/scss/offcanvas";
 @import "~bootstrap/scss/placeholders";
 @import "~bootstrap/scss/utilities/api";
+
+@import "./helpers/index";
+@import './helpers/user-product';
+@import './helpers/favorite';
+@import './helpers/footer';

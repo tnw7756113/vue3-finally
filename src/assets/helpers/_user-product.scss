@@ -1,0 +1,25 @@
+.breadcrumb-text {
+    text-decoration: none;
+    color: #496929;
+    &:hover{
+        text-decoration: none;
+        color: #6a973c;
+    }
+}
+.btn-heart {
+    width: 35px;
+    height: 35px;
+    font-size: 20px;
+    border: 1px solid gray;
+    color: gray;
+    transition: 0.5s;
+    &:hover {
+        transform: scale(1.2);
+        color: rgb(255, 0, 98);
+        border: 1px solid rgb(255, 0, 98);
+    }
+}
+.btn-heart-active {
+    color: rgb(255, 0, 98);
+    border: 1px solid rgb(255, 0, 98);
+}

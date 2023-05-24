@@ -1,51 +1,53 @@
 <template>
   <LoadingView :active="isLoading"></LoadingView>
   <div class="d-flex justify-content-end">
-    <button class="btn btn-primary" type="button"
+    <button class="btn btn-green" type="button"
     @click="openModal(true)">新增產品項目</button>
   </div>
-  <table class="table mt-4">
-    <thead>
-      <tr>
-        <th width="100">分類</th>
-        <th width="120">產品名稱</th>
-        <th>產品圖片</th>
-        <th>產品敘述</th>
-        <th width="120">原價</th>
-        <th width="120">售價</th>
-        <th width="100">是否啟用</th>
-        <th width="200">編輯</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr v-for="item in products" :key="item.id">
-        <td>{{ item.category }}</td>
-        <td>{{ item.title }}</td>
-        <td>
-          <img :src="item.imageUrl" :alt="item.title" style="width: 160px; height: 110px;">
-        </td>
-        <td>{{ item.description }}</td>
-        <td class="text-right">
-          {{ $filters.currency(item.origin_price)  }}
-        </td>
-        <td class="text-right">
-          {{ $filters.currency(item.price) }}
-        </td>
-        <td>
-          <span class="text-success" v-if="item.is_enabled">啟用</span>
-          <span class="text-muted" v-else>未啟用</span>
-        </td>
-        <td>
-          <div class="btn-group">
-            <button class="btn btn-outline-primary btn-sm"
-            @click="openModal(false, item)">編輯</button>
-            <button class="btn btn-outline-danger btn-sm"
-            @click="deleteModal(item)">刪除</button>
-          </div>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="table-responsive">
+    <table class="table mt-4">
+      <thead class="table-success">
+        <tr class="text-nowrap">
+          <th width="100">分類</th>
+          <th width="120">產品名稱</th>
+          <th>產品圖片</th>
+          <th>產品敘述</th>
+          <th width="120">原價</th>
+          <th width="120">售價</th>
+          <th width="100">是否啟用</th>
+          <th width="200">編輯</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="item in products" :key="item.id">
+          <td class="text-nowrap">{{ item.category }}</td>
+          <td class="text-nowrap">{{ item.title }}</td>
+          <td>
+            <img :src="item.imageUrl" :alt="item.title" style="width: 160px; height: 110px;">
+          </td>
+          <td>{{ item.description }}</td>
+          <td class="text-right">
+            {{ $filters.currency(item.origin_price)  }}
+          </td>
+          <td class="text-right">
+            {{ $filters.currency(item.price) }}
+          </td>
+          <td>
+            <span class="text-success" v-if="item.is_enabled">啟用</span>
+            <span class="text-muted" v-else>未啟用</span>
+          </td>
+          <td class="text-nowrap">
+            <div class="btn-group">
+              <button class="btn btn-outline-primary btn-sm"
+              @click="openModal(false, item)">編輯</button>
+              <button class="btn btn-outline-danger btn-sm"
+              @click="deleteModal(item)">刪除</button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
   <Pagination :pages="pagination"
   @emit-page="getProducts"></Pagination>
   <ProductModal ref="productModal"
@@ -83,7 +85,7 @@ export default {
     getProducts (page = 1) {
       this.isLoading = true
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/products?page=${page}`
-      this.$http.get(api)
+      this.axios.get(api)
         .then((res) => {
           this.isLoading = false
           if (res.data.success) {
@@ -121,7 +123,7 @@ export default {
         httpMethod = 'put'
       }
       const productComponet = this.$refs.productModal
-      this.$http[httpMethod](api, { data: this.tempProduct }).then((res) => {
+      this.axios[httpMethod](api, { data: this.tempProduct }).then((res) => {
         this.getProducts()
         this.isLoading = false
         console.log(res)
@@ -133,7 +135,7 @@ export default {
       this.isLoading = true
       const apiDelete = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/product/${this.tempProduct.id}`
       const deleteCompomet = this.$refs.deleteModal
-      this.$http.delete(apiDelete, { data: this.tempProduct }).then((res) => {
+      this.axios.delete(apiDelete, { data: this.tempProduct }).then((res) => {
         this.isLoading = false
         console.log(res)
         deleteCompomet.hideModal()

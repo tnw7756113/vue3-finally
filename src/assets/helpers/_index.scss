@@ -1,0 +1,43 @@
+.swiper {
+    width: 100%;
+}
+.swiper-slide {
+    background-position: center center;
+    background-size: cover;
+}
+.swiper-slide img {
+    max-width: 100%;
+    margin: 0 auto;
+    display: block;
+}
+.bg {
+    background-color: #496929;
+}
+.logo-navbar {
+    width: 70px;
+    height: 70px;
+    background-repeat: no-repeat;
+    text-indent: 101%;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.logo {
+    width: 150px;
+    height: 150px;
+}
+.title {
+    color: #496929;
+    font-weight: bold;
+    font-size: 32px;
+}
+.swiper-product {
+    height: 370px;
+  }
+.swiper-slide-product {
+    height: 350px;
+}
+@media (max-width: 576px) {
+    .swiper-slide-product img {
+        height: 200px;
+    }
+}

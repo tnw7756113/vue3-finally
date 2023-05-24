@@ -1,5 +1,6 @@
 <template>
-<div class="modal fade"
+  <LoadingView :active="isLoading"></LoadingView>
+  <div class="modal fade"
     id="productModal"
     tabindex="-1"
     role="dialog"
@@ -10,7 +11,7 @@
       <div class="modal-content border-0">
         <div class="modal-header bg-dark text-white">
           <h5 class="modal-title" id="exampleModalLabel">
-            <span>訂單細節</span>
+            <span>訂單</span>
           </h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
@@ -36,6 +37,10 @@
                     <th>地址</th>
                     <td>{{ tempOrder.user.address }}</td>
                   </tr>
+                  <tr class="border border-white">
+                    <th>留言</th>
+                    <td>{{ tempOrder.message }}</td>
+                  </tr>
                 </tbody>
               </table>
             </div>
@@ -49,14 +54,12 @@
                   </tr>
                   <tr>
                     <th>下單時間</th>
-                    <!-- <td>{{ $filters.date(tempOrder.create_at) }}</td> -->
+                    <td>{{ $filters.date(tempOrder.create_at) }}</td>
                   </tr>
                   <tr>
                     <th>付款時間</th>
                     <td>
-                      <span v-if="tempOrder.paid_date">
-
-                      </span>
+                      <span v-if="tempOrder.paid_date">{{ $filters.date(tempOrder.paid_date) }}</span>
                       <span v-else>時間不正確</span>
                     </td>
                   </tr>
@@ -64,40 +67,43 @@
                     <th>付款狀態</th>
                     <td>
                       <strong v-if="tempOrder.is_paid" class="text-success">已付款</strong>
-                      <span v-else class="text-muted">尚未付款</span>
+                      <span v-else class="text-danger">尚未付款</span>
                     </td>
                   </tr>
                   <tr>
                     <th>總金額</th>
                     <td>
-                      <!-- {{ $filters.currency(tempOrder.total) }} -->
+                      {{ $filters.currency(tempOrder.total) }}
                     </td>
                   </tr>
                 </tbody>
               </table>
               <h3>選購商品</h3>
               <table class="table">
-                <thead>
-                  <tr></tr>
+                <thead class="table-dark">
+                  <tr>
+                    <th>商品名稱</th>
+                    <th>單價</th>
+                    <th>數量</th>
+                    <th class="text-end">小計</th>
+                  </tr>
                 </thead>
                 <tbody>
-                  <!-- <tr v-for="item in tempOrder.products" :key="item.id">
-                    <th>
-                      {{ item.product.title }}
-                    </th>
+                  <tr v-for="item in tempOrder.products" :key="item.id">
+                    <td>{{ item.product.title }}</td>
+                    <td>{{ item.product.price }}</td>
                     <td>{{ item.qty }} / {{ item.product.unit }}</td>
                     <td class="text-end">
                       {{ $filters.currency(item.final_total) }}
                     </td>
-                  </tr> -->
+                  </tr>
                 </tbody>
               </table>
             </div>
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">取消</button>
-          <!-- <button type="button" class="btn btn-primary" @click="$emit('update-order', tempOrder)">確認</button> -->
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">關閉</button>
         </div>
       </div>
     </div>
@@ -129,7 +135,7 @@ export default {
       isPaid: false
     }
   },
-  inject: ['emitter'],
+  emits: ['update-product'],
   mixins: [modalMixin]
 }
 </script>

@@ -7,22 +7,42 @@ const routes = [
     component: () => import('../views/frontend/UserboardView.vue'),
     children: [
       {
+        path: '',
+        component: () => import('../views/frontend/IndexView.vue')
+      },
+      {
+        path: 'about',
+        component: () => import('../views/frontend/AboutView.vue')
+      },
+      {
         path: 'productList',
         component: () => import('../views/frontend/ProductList.vue')
       },
       {
         path: 'productList/:productId',
         component: () => import('../views/frontend/UserProduct.vue')
+      },
+      {
+        path: 'faq',
+        component: () => import('../views/frontend/FAQ.vue')
+      },
+      {
+        path: 'favourite',
+        component: () => import('../views/frontend/FavouriteView.vue')
+      },
+      {
+        path: 'userCart',
+        component: () => import('../views/frontend/UserCart.vue')
+      },
+      {
+        path: 'userCheckInfo',
+        component: () => import('../views/frontend/UserCheckInfo.vue')
+      },
+      {
+        path: 'checkout/:orderId',
+        component: () => import('../views/frontend/UserCheckout.vue')
       }
     ]
-  },
-  {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
   },
   {
     path: '/login',
