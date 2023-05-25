@@ -29,7 +29,7 @@
       <div class="row justify-content-center">
         <div data-aos="fade-right" data-aos-duration="1000"
         class="col-lg-6 p-5 d-flex flex-column justify-content-center align-items-center">
-          <h2 class="text-center title border-bottom border-3 border-danger">關於和菓子</h2>
+          <h2 class="text-center title">關於和菓子</h2>
           <p class="mt-2">和菓子最早來自西元前人們將樹木的果實加工成粉狀，去除雜質後揉成圓球食用
             （也就是後來的糰子），或是做成傳說中日本最古老的加工食品「麻糬」。</p>
           <p>隨著時代變遷，歷經和唐朝的交流、茶湯文化的興盛，以及西式點心傳入日本等影響，
@@ -48,7 +48,7 @@
     <div class="container">
       <div class="row">
         <div class="col-12 d-flex justify-content-between">
-          <h2 class="title border-bottom border-3 border-danger">精選商品</h2>
+          <h2 class="title">精選商品</h2>
           <div>
             <router-link to="/productList" class="btn btn-outline-green">查看更多</router-link>
           </div>
@@ -58,7 +58,6 @@
             :slidesPerView="1"
             :spaceBetween="20"
             :freeMode="false"
-            :pagination="{ clickable: true }"
             :loop="true"
             :autoplay="{
               delay: 3000,

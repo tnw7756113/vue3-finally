@@ -21,7 +21,7 @@
         <div class="row justify-content-center">
           <div data-aos="fade-right" data-aos-delay="300"
           class="col-12 col-md-6 p-5 d-flex flex-column justify-content-center align-items-center text-center">
-            <h2 class="text-center title border-bottom border-3 border-danger">菓然的誕生</h2>
+            <h2 class="text-center title">菓然的誕生</h2>
             <p>一群對未來充滿熱情且喜愛製作和菓子的年輕人，於2023年創立了菓然。菓然的宗旨，在於掌握味道與外觀的黃金平衡，依循古法，並且配合時代喜好調整製程，將和菓子的美好告訴台灣。</p>
           </div>
           <div class="col-10 col-md-4 d-flex align-items-center">
@@ -34,7 +34,7 @@
         <div class="row justify-content-center flex-row-reverse">
           <div data-aos="fade-left" data-aos-delay="300"
           class="col-12 col-md-6 p-5 d-flex flex-column justify-content-center align-items-center text-center">
-            <h2 class="text-center title border-bottom border-3 border-danger">依循古法 堅持品質</h2>
+            <h2 class="text-center title">依循古法 堅持品質</h2>
             <p>菓然的內餡，完全不添加任何油脂成份，遵循日式內餡的傳統工法，精細製作熬煮；菓然的和菓子，以不含化學防腐的天然材料所製成，建議購買後，請盡快品嘗享用。</p>
           </div>
           <div class="col-10 col-md-4 d-flex align-items-center">
@@ -47,7 +47,7 @@
         <div class="row justify-content-center">
           <div data-aos="fade-right" data-aos-delay="300"
           class="col-12 col-md-6 p-5 d-flex flex-column justify-content-center align-items-center text-center">
-            <h2 class="text-center title border-bottom border-3 border-danger">現做的新鮮餡料</h2>
+            <h2 class="text-center title">現做的新鮮餡料</h2>
             <p>每天職人製作和菓子所使用的原料有許多不同的種類，依據豆子種類的不同來使用不同的製作方法，煮出香氣飽滿，美味又不膩口的豆餡。
               為不失果實的原味，使用的豆餡也經過精心選製（紅豆、白小豆、菜豆、豌豆等），堅持製作出色、香、味俱全的和菓子。</p>
             <p></p>

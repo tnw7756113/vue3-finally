@@ -1,5 +1,5 @@
 <template>
-<Loading :active="isLoading"></Loading>
+<LoadingView :active="isLoading"></LoadingView>
 <section class="mt-7">
   <div class="container">
     <div class="row justify-content-center align-items-center position-relative mt-5">
@@ -116,6 +116,9 @@
 </template>
 
 <script>
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+import 'sweetalert2/src/sweetalert2.scss'
+
 export default {
   data () {
     return {
@@ -155,27 +158,55 @@ export default {
     payOrder () {
       this.isLoading = true
       const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/pay/${this.orderId}`
-      this.axios.post(url).then((res) => {
-        if (res.data.success) {
-          this.emitter.emit('update-cart', this.cart.carts.id)
-          this.$httpMessageStatus(res, '付款', '，將於5秒後跳回首頁！')
-          this.getOrder()
-          this.isLoading = false
-          setTimeout(() => {
-            this.$router.push('/')
-          }, 5000)
-        } else {
-          this.$httpMessageStatus(res, '付款')
-          this.getOrder()
-          this.isLoading = false
-        }
-      })
+      setTimeout(() => {
+        this.axios.post(url).then((res) => {
+          if (res.data.success) {
+            this.isLoading = false
+            this.emitter.emit('update-cart', this.cart.carts.id)
+            this.getOrder()
+            let timerInterval
+            Swal.fire({
+              icon: 'success',
+              title: '付款完成！',
+              html: '將於 <b></b> 秒後跳回首頁',
+              timer: 5000,
+              didOpen: () => {
+                const b = Swal.getHtmlContainer().querySelector('b')
+                timerInterval = setInterval(() => {
+                  b.textContent = parseInt(Swal.getTimerLeft() / 1000)
+                }, 100)
+              },
+              willClose: () => {
+                clearInterval(timerInterval)
+              }
+            }).then((result) => {
+              /* Read more about handling dismissals below */
+              if (result.dismiss === Swal.DismissReason.timer) {
+                this.$router.push('/')
+              }
+            })
+          } else {
+            this.isLoading = false
+            Swal.fire({
+              icon: 'error',
+              title: '付款失敗！',
+              showConfirmButton: false,
+              timer: 1500
+            })
+            this.getOrder()
+          }
+        })
+      }, 2000)
     }
   },
   created () {
-    this.orderId = this.$route.params.orderId
-    this.getCart()
-    this.getOrder()
+    this.isLoading = true
+    setTimeout(() => {
+      this.orderId = this.$route.params.orderId
+      this.getCart()
+      this.getOrder()
+      this.isLoading = false
+    }, 2000)
   }
 }
 </script>
