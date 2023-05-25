@@ -163,7 +163,6 @@ export default {
           if (res.data.success) {
             this.isLoading = false
             this.emitter.emit('update-cart', this.cart.carts.id)
-            this.getOrder()
             let timerInterval
             Swal.fire({
               icon: 'success',
@@ -185,6 +184,7 @@ export default {
                 this.$router.push('/')
               }
             })
+            this.getOrder()
           } else {
             this.isLoading = false
             Swal.fire({
