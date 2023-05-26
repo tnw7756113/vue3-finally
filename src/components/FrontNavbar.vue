@@ -1,18 +1,18 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-light position-fixed top-0 w-100 p-0 bg-white" style="z-index: 99;">
+  <nav class="navbar navbar-expand-md navbar-light position-fixed top-0 w-100 p-0 bg-white" style="z-index: 99;">
     <div class="container">
       <a class="navbar-brand" href="#">
         <img class="logo-navbar " src="../assets/imgs/logo_navbar.webp" alt="logo">
       </a>
       <div class="d-flex">
-        <router-link to="/login" class="nav-link fs-3 p-1 d-lg-none"><i class="bi bi-person-fill"></i></router-link>
-        <router-link to="/favourite" class="nav-link fs-3 p-1 me-2 d-lg-none position-relative">
+        <router-link to="/login" class="nav-link fs-3 p-1 d-md-none"><i class="bi bi-person-fill"></i></router-link>
+        <router-link to="/favourite" class="nav-link fs-3 p-1 me-2 d-md-none position-relative">
           <i class="bi bi-suit-heart-fill"></i>
           <span v-if="faveList.length"
             class="position-absolute start-50 badge rounded-pill bg-danger p-1"
             style="font-size: 12px; width: 25px; height: 20px;">{{ faveList.length }}</span>
         </router-link>
-        <router-link to="/userCart" class="nav-link fs-3 p-1 me-2 d-lg-none position-relative">
+        <router-link to="/userCart" class="nav-link fs-3 p-1 me-2 d-md-none position-relative">
           <i class="bi bi-cart4"></i>
           <span v-if="cartQty"
           class="position-absolute start-50 badge rounded-pill bg-danger p-1"
@@ -29,14 +29,14 @@
           <router-link to="/faq" class="nav-link fs-5">常見問題</router-link>
         </div>
       </div>
-      <router-link to="/login" class="nav-link fs-3 p-1 me-2 d-none d-lg-block"><i class="bi bi-person-fill"></i></router-link>
-      <router-link to="/favourite" class="nav-link fs-3 p-1 me-2 d-none d-lg-block position-relative">
+      <router-link to="/login" class="nav-link fs-3 p-1 me-2 d-none d-md-block"><i class="bi bi-person-fill"></i></router-link>
+      <router-link to="/favourite" class="nav-link fs-3 p-1 me-2 d-none d-md-block position-relative">
         <i class="bi bi-suit-heart-fill"></i>
         <span v-if="faveList.length"
           class="position-absolute start-50 badge rounded-pill bg-danger p-1"
           style="font-size: 12px; width: 25px; height: 20px;">{{ faveList.length }}</span>
       </router-link>
-      <router-link to="/userCart" class="nav-link fs-3 p-1 d-none d-lg-block position-relative">
+      <router-link to="/userCart" class="nav-link fs-3 p-1 d-none d-md-block position-relative">
         <i class="bi bi-cart4"></i>
         <span v-if="cartQty"
           class="position-absolute start-50 badge rounded-pill bg-danger p-1"
