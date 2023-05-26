@@ -1,7 +1,7 @@
 <template>
 <section class="mt-6">
   <div class="container d-flex justify-content-center">
-    <img class="img-fluid" src="@/assets/imgs/banner02.jpg" alt="banner">
+    <img class="img-fluid" src="@/assets/imgs/banner02.webp" alt="banner">
   </div>
 </section>
 <section>
@@ -26,7 +26,7 @@
           </div>
           <div class="col-10 col-md-4 d-flex align-items-center">
             <img data-aos="zoom-in"
-            class="img-fluid " src="@/assets/imgs/wagasi02.jpg" alt="wagasi">
+            class="img-fluid " src="@/assets/imgs/wagasi02.webp" alt="wagasi">
           </div>
         </div>
       </div>
@@ -39,7 +39,7 @@
           </div>
           <div class="col-10 col-md-4 d-flex align-items-center">
             <img data-aos="zoom-in"
-            class="img-fluid" src="@/assets/imgs/syokunin.jpg" alt="syokunin">
+            class="img-fluid" src="@/assets/imgs/syokunin.webp" alt="syokunin">
           </div>
         </div>
       </div>
@@ -54,7 +54,7 @@
           </div>
           <div class="col-10 col-md-4 d-flex align-items-center">
             <img data-aos="zoom-in"
-            class="img-fluid" src="@/assets/imgs/anko.jpg" alt="anko">
+            class="img-fluid" src="@/assets/imgs/anko.webp" alt="anko">
           </div>
         </div>
       </div>
@@ -67,7 +67,7 @@
           </div>
           <div class="col-10 col-md-4 d-flex align-items-center">
             <img data-aos="zoom-in"
-            class="img-fluid" src="@/assets/imgs/ichigodaihuku02.jpg" alt="ichigodaihuku">
+            class="img-fluid" src="@/assets/imgs/ichigodaihuku02.webp" alt="ichigodaihuku">
           </div>
         </div>
       </div>

@@ -2,7 +2,7 @@
   <LoadingView :active="isLoading"></LoadingView>
   <section class="mt-6">
     <div class="container d-flex justify-content-center">
-      <img class="img-fluid" src="@/assets/imgs/banner05.jpg" alt="banner">
+      <img class="img-fluid" src="@/assets/imgs/banner05.webp" alt="banner">
     </div>
   </section>
   <section>

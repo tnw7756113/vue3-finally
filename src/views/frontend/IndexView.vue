@@ -13,13 +13,13 @@
       @swiper="onSwiper"
       @slideChange="onSlideChange">
       <swiper-slide>
-        <img class="img-fluid" src="@/assets/imgs/banner06.jpg" alt="banner">
+        <img class="img-fluid" src="@/assets/imgs/banner06.webp" alt="banner">
       </swiper-slide>
       <swiper-slide>
-        <img class="img-fluid" src="@/assets/imgs/banner01.jpg" alt="banner">
+        <img class="img-fluid" src="@/assets/imgs/banner01.webp" alt="banner">
       </swiper-slide>
       <swiper-slide>
-        <img class="img-fluid" src="@/assets/imgs/banner07.jpg" alt="banner">
+        <img class="img-fluid" src="@/assets/imgs/banner07.webp" alt="banner">
       </swiper-slide>
     </swiper>
   </div>
@@ -38,7 +38,7 @@
         </div>
         <div class="col-lg-4 d-flex flex-column justify-content-center align-items-center">
           <img data-aos="zoom-in"
-          class="img-fluid" src="@/assets/imgs/wagasi01.jpg" alt="wagasi">
+          class="img-fluid" src="@/assets/imgs/wagasi01.webp" alt="wagasi">
         </div>
       </div>
     </div>

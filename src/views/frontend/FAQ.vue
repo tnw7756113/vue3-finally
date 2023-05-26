@@ -1,7 +1,7 @@
 <template>
 <section class="mt-6">
   <div class="container d-flex justify-content-center">
-    <img class="img-fluid" src="@/assets/imgs/banner04.jpg" alt="banner">
+    <img class="img-fluid" src="@/assets/imgs/banner04.webp" alt="banner">
   </div>
 </section>
 <section>

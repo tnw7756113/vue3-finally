@@ -3,7 +3,7 @@
     <div class="container">
       <div class="row row-cols-md-3 py-4 justify-content-end">
         <div class="col-12 col-md-4 p-3 d-flex justify-content-center">
-          <img class="logo" src="../assets/imgs/logo.png" alt="logo">
+          <img class="logo" src="../assets/imgs/logo.webp" alt="logo">
         </div>
         <div class="col-10 col-sm-8 col-md-4 p-3">
           <ol class="px-0" style="list-style-type: none;">
