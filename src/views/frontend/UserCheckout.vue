@@ -170,6 +170,7 @@ export default {
               html: '將於 <b></b> 秒後跳回首頁',
               timer: 5000,
               didOpen: () => {
+                Swal.showLoading()
                 const b = Swal.getHtmlContainer().querySelector('b')
                 timerInterval = setInterval(() => {
                   b.textContent = parseInt(Swal.getTimerLeft() / 1000)
