@@ -32,21 +32,33 @@
                     NT$ {{ product.price }}</p>
               </div>
               <hr class="text-red">
-              <div class="col-12">{{ product.description }}</div>
-              <div class="col-12 mt-5 d-flex justify-content-end">
-                <div class="input-group" style="width: 180px;">
+              <div class="col-8">{{ product.description }}</div>
+              <div class="col-4 mb-3 d-flex justify-content-end">
+                <div style="width: 60px;">
                   <select class="form-select border-black form-control-sm" v-model="qty">
                       <option :value="qty" v-for="qty in 10" :key="qty">{{ qty }}</option>
                   </select>
-                  <button @click="addCart(product.id, qty)" class="btn btn-black">加入購物車</button>
                 </div>
+              </div>
+
+              <div class="mt-6 d-flex justify-content-end">
+                <button @click.prevent="addFave(product)"
+                  :class="{ 'btn-heart-active': faveList.some((i) => {
+                          return i === product.id
+                        })}"
+                  class="btn-heart me-2">
+                  <i class="bi bi-suit-heart-fill"></i>
+                </button>
+                <button @click="addCart(product.id, qty)" class="btn btn-outline-black btn-add-cart">
+                  <i class="bi bi-cart4 me-1"></i>加入購物車
+                </button>
               </div>
           </div>
         </div>
         <div class="col-12 mt-5">
           <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
-              <button class="nav-link active text-green" id="content-tab" data-bs-toggle="tab" data-bs-target="#content" type="button" role="tab" aria-controls="content" aria-selected="true">描述</button>
+              <button class="nav-link active text-green " id="content-tab" data-bs-toggle="tab" data-bs-target="#content" type="button" role="tab" aria-controls="content" aria-selected="true">描述</button>
             </li>
           </ul>
           <div class="tab-content" id="myTabContent">
@@ -60,7 +72,7 @@
       </div>
     </div>
   </section>
-  <section class="mt-3 bg-beige py-3">
+  <section class="mt-3 py-3">
     <div class="container">
       <div class="row row-cols-1 ">
         <div class="col">
@@ -96,13 +108,47 @@
       </div>
     </div>
   </section>
+  <section class="my-5">
+    <div class="container">
+      <div class="py-3 text-center">
+        <h2 class="title">你可能也喜歡</h2>
+      </div>
+      <div class="row row-cols-1 row-cols-md-3 g-3 g-md-2 d-flex justify-content-center">
+        <router-link :to="`/productList/${item.id}`" @click.prevent="changId(item.id)" v-for="item in maybeLike" :key="item.id" class="text-decoration-none">
+          <div class="col">
+            <div class="card border-1 product-card">
+              <div class="overflow-hidden">
+                <img :src="item.imageUrl" class="card-img-top w-100" :alt="item.title">
+              </div>
+              <div class="card-body">
+                <h2 class="card-title fs-5">{{ item.title }}</h2>
+                <div>
+                  <p v-if="item.origin_price !== item.price"
+                    class="card-text fs-6 mb-0 text-decoration-line-through">NT$ {{ item.origin_price }}</p>
+                  <p v-else class="fs-6 mb-0 invisible">hidden</p>
+                  <p class="card-text fs-5 mb-0">NT$ {{ item.price }}</p>
+                  <span class="border border-3 border-red text-red bg-white px-2 position-absolute top-3 end-3"
+                  v-if="item.origin_price !== item.price">SALE</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </router-link>
+      </div>
+    </div>
+  </section>
 </template>
 
 <script>
+import saveFave from '@/methods/saveFave'
 export default {
   data () {
     return {
+      faveList: saveFave.getFavorite() || [],
       product: {},
+      filterProduct: [],
+      maybeLike: {},
+      randomNum: 0,
       id: '',
       qty: 1,
       isLoading: false
@@ -118,9 +164,35 @@ export default {
       this.axios.get(api).then((res) => {
         if (res.data.success) {
           this.product = res.data.product
+          this.filtersMaybeLike()
           this.isLoading = false
         }
       })
+    },
+    addFave (item) {
+      this.isLoading = true
+      if (!this.faveList.includes(item.id)) {
+        this.faveList.push(item.id)
+        this.$httpMessageStatus(
+          {
+            data: {
+              success: true
+            }
+          }, `已將 ${item.title} 加入收藏`)
+        this.isLoading = false
+      } else {
+        this.faveList.splice(this.faveList.indexOf(item.id), 1)
+        this.$httpMessageStatus(
+          {
+            data: {
+              success: true
+            }
+          }, `已將 ${item.title} 移除收藏`)
+        this.isLoading = false
+      }
+      saveFave.saveFavorite(this.faveList)
+      this.emitter.emit('update-fave', this.faveList)
+      console.log(this.faveList)
     },
     addCart (id, qty) {
       this.isLoading = true
@@ -138,6 +210,26 @@ export default {
             this.$httpMessageStatus(res, '加入購物車')
           }
         })
+    },
+    filtersMaybeLike () {
+      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/products/all`
+      this.axios.get(api).then((res) => {
+        if (res.data.success) {
+          this.filterProduct = res.data.products.filter((item) => {
+            return item.category === this.product.category && item.id !== this.product.id
+          })
+          this.randomNum = this.filterProduct.length
+          this.randomProduct()
+        }
+      })
+    },
+    randomProduct () {
+      this.maybeLike = this.filterProduct.sort(() => Math.random() - 0.5)
+      this.maybeLike.splice(0, parseInt(this.randomNum) - 3)
+    },
+    changId (id) {
+      this.id = id
+      this.getProduct()
     }
   },
   created () {

@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-expand-md navbar-light position-fixed top-0 w-100 p-0 bg-white" style="z-index: 99;">
+  <nav class="navbar navbar-expand-md navbar-light  position-fixed top-0 w-100 p-0 bg-white" style="z-index: 99;">
     <div class="container">
       <a class="navbar-brand" href="#">
         <img class="logo-navbar " src="../assets/imgs/logo_navbar.webp" alt="logo">

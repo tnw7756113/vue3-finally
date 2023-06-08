@@ -36,9 +36,9 @@
         </div>
       </div>
     </div>
-    <div class="text-center fs-6">
-        <p>本網站為個人練習使用，無商業用途</p>
-        <p>© 2023 Gary Huang All rights reserved.</p>
-      </div>
+    <div class="text-center py-3 fs-6 bg-dark text-white">
+      <p>本網站為個人練習使用，無商業用途</p>
+      <p class="mb-0">© 2023 Gary Huang All rights reserved.</p>
+    </div>
   </footer>
 </template>

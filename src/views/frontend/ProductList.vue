@@ -32,8 +32,10 @@
           <div class="row row-cols-2 row-cols-lg-3 g-3">
             <router-link :to="`/productList/${item.id}`" v-for="item in tempProduct" :key="item.id" class="text-decoration-none">
               <div class="col">
-                <div class="card border-0">
-                  <img :src="item.imageUrl" class="card-img-top" :alt="item.title">
+                <div class="card border-1 product-card">
+                  <div class="overflow-hidden">
+                    <img :src="item.imageUrl" class="card-img-top" :alt="item.title">
+                  </div>
                   <div class="card-body d-flex flex-column">
                     <h2 class="card-title fs-5">{{ item.title }}</h2>
                     <div class="row">
@@ -44,15 +46,6 @@
                         <p class="card-text fs-5 mb-2">NT$ {{ item.price }}</p>
                         <span class="border border-3 border-red text-red bg-white px-2 position-absolute top-3 end-3"
                           v-if="item.origin_price !== item.price">SALE</span>
-                      </div>
-                      <div class="col-3 p-0 d-flex justify-content-end align-items-end">
-                        <button @click.prevent="addFave(item)"
-                        :class="{ 'btn-heart-active': faveList.some((i) => {
-                          return i === item.id
-                        })}"
-                        class="btn-heart rounded-circle p-0">
-                          <i class="bi bi-suit-heart-fill"></i>
-                        </button>
                       </div>
                     </div>
                   </div>
@@ -72,12 +65,10 @@
 
 <script>
 import Pagination from '@/components/PaginationView.vue'
-import saveFave from '@/methods/saveFave'
 
 export default {
   data () {
     return {
-      faveList: saveFave.getFavorite() || [],
       products: [],
       tempProduct: {},
       currentCategory: '全部',
@@ -141,31 +132,6 @@ export default {
       const minPage = (this.pagination.current_page * pageSize) - pageSize
       const maxPage = (this.pagination.current_page * pageSize)
       this.tempProduct = this.tempProduct.slice(minPage, maxPage)
-    },
-    addFave (item) {
-      this.isLoading = true
-      if (!this.faveList.includes(item.id)) {
-        this.faveList.push(item.id)
-        this.$httpMessageStatus(
-          {
-            data: {
-              success: true
-            }
-          }, `已將 ${item.title} 加入收藏`)
-        this.isLoading = false
-      } else {
-        this.faveList.splice(this.faveList.indexOf(item.id), 1)
-        this.$httpMessageStatus(
-          {
-            data: {
-              success: true
-            }
-          }, `已將 ${item.title} 移除收藏`)
-        this.isLoading = false
-      }
-      saveFave.saveFavorite(this.faveList)
-      this.emitter.emit('update-fave', this.faveList)
-      console.log(this.faveList)
     }
   },
   created () {
