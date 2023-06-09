@@ -1,7 +1,7 @@
 <template>
   <header class="mt-6">
     <div class="header text-white">
-      <div class="bg-dark-gradient container d-flex flex-column justify-content-center align-items-center">
+      <div class="bg-dark-gradient-200 container d-flex flex-column justify-content-center align-items-center">
         <h1 class="banner-text d-none d-md-block">果然還是菓然美味</h1>
         <h1 class="banner-text fs-3 d-md-none">果然還是菓然美味</h1>
         <router-link to="/productList" class="btn btn-outline-light mt-3">快來選購</router-link>
@@ -44,7 +44,7 @@
       </div>
     </div>
   </section>
-  <section class="mt-5">
+  <section class="my-5">
     <div class="container">
       <div class="text-center py-3">
         <h2 class="title">為什麼選擇菓然的和菓子？</h2>
@@ -95,6 +95,25 @@
             <p>輕鬆瀏覽我們的網站，從舒適的家中為自己選購您喜愛的和菓子。我們提供方便的線上訂購和運送服務服務，確保您快速收到新鮮美味的和菓子。</p>
           </div>
         </div>
+      </div>
+    </div>
+  </section>
+  <section class="bg-coupon-code bg-fixed d-flex justify-content-center align-items-center">
+    <div class="container">
+      <div class="bg-dark-gradient-600 py-5">
+        <div class="row row-cols-1 justify-content-center">
+          <div class="col text-center text-white">
+            <h2>歡慶開店</h2>
+            <p>現在輸入歡慶折扣碼即可享受8折優惠喔！</p>
+          </div>
+          <div class="col-10 col-md-6">
+            <div class="input-group">
+              <input id="couponCode" type="text" class="form-control text-red fw-bold" value="VIP888" disabled aria-describedby="button-addon2">
+              <button class="btn btn-brown" type="button" @click="copyCouponCode"><i class="bi bi-files me-1"></i>複製</button>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
@@ -170,6 +189,9 @@ import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+import 'sweetalert2/src/sweetalert2.scss'
+
 export default {
   data () {
     return {
@@ -198,6 +220,14 @@ export default {
     randomProduct () {
       this.randomDate = this.products.sort(() => Math.random() - 0.5)
       this.randomDate.splice(0, parseInt(this.randomNum) - 8)
+    },
+    copyCouponCode () {
+      const copyCode = document.getElementById('couponCode')
+      navigator.clipboard.writeText(copyCode.value)
+        .then(() => Swal.fire({
+          icon: 'success',
+          title: '優惠碼複製成功！'
+        }))
     }
   },
   created () {
