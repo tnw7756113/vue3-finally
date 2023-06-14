@@ -17,7 +17,7 @@
       </nav>
     </div>
 </section>
-<section class="mt-5">
+<section class="my-5">
   <div class="container d-flex">
     <div class="row g-1 w-100">
       <div data-aos="zoom-in" class="col-12 col-md-6 d-flex flex-column justify-content-center align-items-start">
@@ -32,7 +32,7 @@
     </div>
   </div>
 </section>
-<section class="mt-5 mt-md-7">
+<section class="my-5 my-md-7">
   <div class="container d-flex">
     <div class="row g-1 w-100 flex-row-reverse">
       <div data-aos="zoom-in" class="col-12 col-md-6 d-flex flex-column justify-content-center align-items-end">
@@ -47,7 +47,7 @@
     </div>
   </div>
 </section>
-<section class="mt-5 mt-md-7">
+<section class="my-5 my-md-7">
   <div class="container d-flex">
     <div class="row g-1 w-100">
       <div data-aos="zoom-in" class="col-12 col-md-6 d-flex flex-column justify-content-center align-items-start">
