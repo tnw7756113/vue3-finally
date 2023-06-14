@@ -2,7 +2,7 @@
   <LoadingView :active="isLoading"></LoadingView>
   <div class="table-responsive">
     <table class="table mt-4">
-      <thead class="table-success">
+      <thead class="table-beige text-brown">
         <tr class="text-nowrap">
           <th width="120">購買時間</th>
           <th width="120">E-mail</th>

@@ -1,7 +1,10 @@
 <template>
 <section class="mt-6">
-  <div class="container d-flex justify-content-center">
-    <img class="img-fluid" src="@/assets/imgs/banner04.webp" alt="banner">
+  <div class="banner d-flex flex-column justify-content-center align-items-center">
+    <div class="text-center">
+      <h1 class="banner-title mb-3">常見問題</h1>
+      <span class="banner-text">購買時有任何問題嗎？</span>
+    </div>
   </div>
 </section>
 <section>
@@ -23,7 +26,7 @@
             物流相關
           </button>
         </h2>
-        <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
           <div class="accordion-body">
             <h2 class="fs-5 fw-bold">Q：配送方式有哪些？</h2>
             <p>A：貓咪低溫宅配(冷凍)。</p>

@@ -2,12 +2,12 @@
   <LoadingView :active="isLoading"></LoadingView>
   <div class="table-responsive">
     <div class="text-end mt-4">
-      <button class="btn btn-green" @click="openCouponModal(true)">
+      <button class="btn btn-brown" @click="openCouponModal(true)">
         建立新的優惠券
       </button>
     </div>
     <table class="table mt-4">
-      <thead class="table-success">
+      <thead class="table-beige text-brown">
         <tr class="text-nowrap">
           <th>名稱</th>
           <th>折扣百分比</th>

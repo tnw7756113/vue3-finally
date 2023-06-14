@@ -1,9 +1,9 @@
 <template>
-  <footer class="border-top border-5 border-red">
+  <footer class="bg-dark text-green-light">
     <div class="container">
       <div class="row row-cols-md-3 py-4 justify-content-end">
         <div class="col-12 col-md-4 p-3 d-flex justify-content-center">
-          <img class="logo" src="../assets/imgs/logo.webp" alt="logo">
+          <img class="logo" src="../assets/imgs/logo.png" alt="logo">
         </div>
         <div class="col-10 col-sm-8 col-md-4 p-3">
           <ol class="px-0" style="list-style-type: none;">
@@ -36,7 +36,7 @@
         </div>
       </div>
     </div>
-    <div class="text-center py-3 fs-6 bg-dark text-white">
+    <div class="text-center py-3 fs-6">
       <p>本網站為個人練習使用，無商業用途</p>
       <p class="mb-0">© 2023 Gary Huang All rights reserved.</p>
     </div>

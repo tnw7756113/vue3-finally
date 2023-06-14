@@ -1,20 +1,20 @@
 <template>
   <LoadingView :active="isLoading"></LoadingView>
   <div class="d-flex justify-content-end">
-    <button class="btn btn-green" type="button"
+    <button class="btn btn-brown" type="button"
     @click="openModal(true)">新增產品項目</button>
   </div>
   <div class="table-responsive">
     <table class="table mt-4">
-      <thead class="table-success">
+      <thead class="table-beige text-brown">
         <tr class="text-nowrap">
           <th width="100">分類</th>
           <th width="120">產品名稱</th>
-          <th>產品圖片</th>
+          <th width = "120">產品圖片</th>
           <th>產品敘述</th>
-          <th width="120">原價</th>
-          <th width="120">售價</th>
-          <th width="100">是否啟用</th>
+          <th width ="120">原價</th>
+          <th width ="120">售價</th>
+          <th width ="100">是否啟用</th>
           <th width="200">編輯</th>
         </tr>
       </thead>
@@ -25,7 +25,7 @@
           <td>
             <img :src="item.imageUrl" :alt="item.title" style="width: 160px; height: 110px;">
           </td>
-          <td>{{ item.description }}</td>
+          <td width = "300">{{ item.description }}</td>
           <td class="text-right">
             {{ $filters.currency(item.origin_price)  }}
           </td>

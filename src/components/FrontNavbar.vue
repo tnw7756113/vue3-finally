@@ -1,8 +1,8 @@
 <template>
-  <nav class="navbar navbar-expand-md navbar-light  position-fixed top-0 w-100 p-0 bg-white" style="z-index: 99;">
+  <nav class="navbar navbar-expand-md navbar-dark position-fixed top-0 w-100 p-0 bg-dark text-green-light" style="z-index: 99;">
     <div class="container">
       <a class="navbar-brand" href="#">
-        <img class="logo-navbar " src="../assets/imgs/logo_navbar.webp" alt="logo">
+        <img class="logo-navbar " src="../assets/imgs/logo_navbar.png" alt="logo">
       </a>
       <div class="d-flex">
         <router-link to="/login" class="nav-link fs-3 p-1 d-md-none"><i class="bi bi-person-fill"></i></router-link>
@@ -23,9 +23,9 @@
         </button>
       </div>
       <div class="collapse navbar-collapse text-center" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
+        <div class="navbar-nav fw-bold">
           <router-link to="/about" class="nav-link fs-5">關於我們</router-link>
-          <router-link to="/productList" class="nav-link fs-5">產品列表</router-link>
+          <router-link to="/productList" class="nav-link fs-5">商品一覽</router-link>
           <router-link to="/faq" class="nav-link fs-5">常見問題</router-link>
         </div>
       </div>

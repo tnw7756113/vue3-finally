@@ -1,8 +1,11 @@
 <template>
   <LoadingView :active="isLoading"></LoadingView>
   <section class="mt-6">
-    <div class="container d-flex justify-content-center">
-      <img class="img-fluid" src="@/assets/imgs/banner05.webp" alt="banner">
+    <div class="banner d-flex flex-column justify-content-center align-items-center">
+      <div class="text-center">
+        <h1 class="banner-title mb-3">收藏清單</h1>
+        <span class="banner-text">我們的和菓子一級棒！別猶豫了，趕緊加入購物車吧！</span>
+      </div>
     </div>
   </section>
   <section>
@@ -18,9 +21,9 @@
   <section class="my-5" v-if="!faveList.length">
     <div class="container">
       <div class="border border-2 px-2 py-5 p-lg-5">
-        <h2 class="text-center">收藏清單目前是空的！</h2>
+        <h2 class="text-center text-brown fw-bold">收藏清單目前是空的！</h2>
         <div class="col-5 col-md-2 mx-auto mt-5">
-          <router-link to="/productList" class="btn btn-outline-green btn-sm w-100">來去逛逛吧！</router-link>
+          <router-link to="/productList" class="btn btn-outline-brown btn-sm w-100">來去逛逛吧！</router-link>
         </div>
       </div>
     </div>
@@ -30,14 +33,14 @@
       <div class="border border-2 px-1 py-5 p-lg-5">
         <div class="table-responsive-md">
           <table class="table text-nowrap">
-            <thead class="table-dark">
+            <thead class="table-beige text-brown">
               <tr>
                 <th colspan="2"  style="width: 50%;">商品</th>
                 <th class="text-end" style="width: 25%;">單價</th>
                 <th></th>
               </tr>
             </thead>
-            <tbody>
+            <tbody class="text-brown">
               <tr v-for="item in faveProduct" :key="item.id">
                 <td>
                   <img style="width: 160px; height: 107px;"
@@ -45,7 +48,7 @@
                       :alt="item.title"/>
                 </td>
                 <td class="align-middle">
-                  <p class="fs-6 mb-0">{{ item.title }}</p>
+                  <p class="fs-5 mb-0">{{ item.title }}</p>
                 </td>
                 <td class="align-middle text-end">
                   <p v-if="item.origin_price !== item.price"

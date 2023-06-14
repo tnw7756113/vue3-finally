@@ -319,10 +319,11 @@ $theme-colors: (
   "light":      $light,
   "dark":       $dark,
   "yellow":     $yellow,
-  "black":      #1e1e1e,
+  "black":      #212529,
   "red":        #c92c2c,
   "green":      #496929,
-  "beige":      #f6f4ea,
+  "green-light":#8ca061,
+  "beige":      #eee6de,
   "brown":      #6b5629,
   "brown-light":  #f2efef
 ) !default;
@@ -717,8 +718,8 @@ $table-variants: (
   "danger":     shift-color($danger, $table-bg-scale),
   "light":      $light,
   "dark":       $dark,
-  "black":      #1e1e1e,
-  "red":        #c42929
+  "red":        #c42929,
+  "beige":      #eee6de
 ) !default;
 // scss-docs-end table-loop
 
@@ -1125,9 +1126,9 @@ $navbar-light-brand-hover-color:    $navbar-light-active-color !default;
 // scss-docs-end navbar-variables
 
 // scss-docs-start navbar-dark-variables
-$navbar-dark-color:                 rgba($white, .55) !default;
-$navbar-dark-hover-color:           rgba($white, .75) !default;
-$navbar-dark-active-color:          $white !default;
+$navbar-dark-color:                 #8ca061;//rgba($white, .55) !default;
+$navbar-dark-hover-color:           #eee6de;//rgba($white, .75) !default;
+$navbar-dark-active-color:          #eee6de;//$white !default;
 $navbar-dark-disabled-color:        rgba($white, .25) !default;
 $navbar-dark-toggler-icon-bg:       url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'><path stroke='#{$navbar-dark-color}' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/></svg>") !default;
 $navbar-dark-toggler-border-color:  rgba($white, .1) !default;
@@ -1257,7 +1258,7 @@ $card-cap-padding-y:                $card-spacer-y * .5 !default;
 $card-cap-padding-x:                $card-spacer-x !default;
 $card-cap-bg:                       rgba($black, .03) !default;
 $card-cap-color:                    null !default;
-$card-height:                       null !default;
+$card-height:                       100%;//null !default;
 $card-color:                        $black;//null !default;
 $card-bg:                           $white !default;
 $card-img-overlay-padding:          $spacer !default;
@@ -1282,10 +1283,10 @@ $accordion-body-padding-x:                $accordion-padding-x !default;
 $accordion-button-padding-y:              $accordion-padding-y !default;
 $accordion-button-padding-x:              $accordion-padding-x !default;
 $accordion-button-color:                  $accordion-color !default;
-$accordion-button-bg:                     #f6f4ea;//var(--#{$prefix}accordion-bg) !default;
+$accordion-button-bg:                     #eee6de;//var(--#{$prefix}accordion-bg) !default;
 $accordion-transition:                    $btn-transition, border-radius .15s ease !default;
-$accordion-button-active-bg:              #f6f4ea;//tint-color($component-active-bg, 90%) !default;
-$accordion-button-active-color:           #496929;//shade-color($primary, 10%) !default;
+$accordion-button-active-bg:              #eee6de;//tint-color($component-active-bg, 90%) !default;
+$accordion-button-active-color:           #6b5629;//shade-color($primary, 10%) !default;
 
 $accordion-button-focus-border-color:     $input-focus-border-color !default;
 $accordion-button-focus-box-shadow:       $btn-focus-box-shadow !default;
@@ -1536,7 +1537,7 @@ $breadcrumb-item-padding-x:         .5rem !default;
 $breadcrumb-margin-bottom:          1rem !default;
 $breadcrumb-bg:                     null !default;
 $breadcrumb-divider-color:          $gray-600 !default;
-$breadcrumb-active-color:           #6a973c;// !default;
+$breadcrumb-active-color:           #8ca061;// !default;
 $breadcrumb-divider:                quote("/") !default;
 $breadcrumb-divider-flipped:        $breadcrumb-divider !default;
 $breadcrumb-border-radius:          null !default;

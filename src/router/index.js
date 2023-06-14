@@ -70,7 +70,11 @@ const routes = [
 
 const router = createRouter({
   history: createWebHashHistory(),
-  routes
+  routes,
+  // 每次切換路由頁面滾至頂部
+  scrollBehavior () {
+    return { top: 0 }
+  }
 })
 
 export default router
