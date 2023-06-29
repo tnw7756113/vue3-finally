@@ -2,7 +2,7 @@
   <LoadingView :active="isLoading"></LoadingView>
   <div class="table-responsive">
     <div class="text-end mt-4">
-      <button class="btn btn-brown" @click="openCouponModal(true)">
+      <button type="button" class="btn btn-brown" @click="openCouponModal(true)">
         建立新的優惠券
       </button>
     </div>
@@ -27,10 +27,10 @@
           </td>
           <td>
             <div class="btn-group">
-              <button class="btn btn-outline-primary btn-sm"
+              <button type="button" class="btn btn-outline-primary btn-sm"
                       @click="openCouponModal(false, item)"
               >編輯</button>
-              <button class="btn btn-outline-danger btn-sm"
+              <button type="button" class="btn btn-outline-danger btn-sm"
                       @click="openDeleteModal(item)"
               >刪除</button>
             </div>
@@ -78,43 +78,71 @@ export default {
     getCoupons (page = 1) {
       this.isLoading = true
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/coupons?page=${page}`
-      this.axios.get(api).then((res) => {
-        if (res.data.success) {
-          console.log(res.data)
-          this.coupons = res.data.coupons
-          this.pagination = res.data.pagination
+      this.axios.get(api)
+        .then((res) => {
+          if (res.data.success) {
+            this.coupons = res.data.coupons
+            this.pagination = res.data.pagination
+            this.isLoading = false
+          }
+        })
+        .catch((error) => {
           this.isLoading = false
-        }
-      })
+          this.emitter.emit('push-message', {
+            style: 'danger',
+            title: error.response.data.message
+          })
+        })
     },
     updateCoupon (tempCoupon) {
       if (this.isNew) {
         const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/coupon`
-        this.axios.post(url, { data: tempCoupon }).then((res) => {
-          console.log(res, tempCoupon)
-          this.$httpMessageStatus(res, '新增優惠券')
-          this.getCoupons()
-          this.$refs.couponModal.hideModal()
-        })
+        this.axios.post(url, { data: tempCoupon })
+          .then((res) => {
+            this.$httpMessageStatus(res, '新增優惠券')
+            this.getCoupons()
+            this.$refs.couponModal.hideModal()
+          })
+          .catch((error) => {
+            this.isLoading = false
+            this.emitter.emit('push-message', {
+              style: 'danger',
+              title: error.response.data.message
+            })
+          })
       } else {
         const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/coupon/${this.tempCoupon.id}`
-        this.axios.put(url, { data: this.tempCoupon }).then((res) => {
-          console.log(res)
-          this.$httpMessageStatus(res, '修改優惠券')
-          this.getCoupons()
-          this.$refs.couponModal.hideModal()
-        })
+        this.axios.put(url, { data: this.tempCoupon })
+          .then((res) => {
+            this.$httpMessageStatus(res, '修改優惠券')
+            this.getCoupons()
+            this.$refs.couponModal.hideModal()
+          })
+          .catch((error) => {
+            this.isLoading = false
+            this.emitter.emit('push-message', {
+              style: 'danger',
+              title: error.response.data.message
+            })
+          })
       }
     },
     delCoupon () {
       this.Loading = true
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/coupon/${this.tempCoupon.id}`
-      this.axios.delete(api, { data: this.tempCoupon }).then((res) => {
-        this.Loading = false
-        console.log(res)
-        this.$refs.deleteModal.hideModal()
-        this.getCoupons()
-      })
+      this.axios.delete(api, { data: this.tempCoupon })
+        .then((res) => {
+          this.Loading = false
+          this.$refs.deleteModal.hideModal()
+          this.getCoupons()
+        })
+        .catch((error) => {
+          this.isLoading = false
+          this.emitter.emit('push-message', {
+            style: 'danger',
+            title: error.response.data.message
+          })
+        })
     },
     openCouponModal (isNew, item) {
       this.isNew = isNew

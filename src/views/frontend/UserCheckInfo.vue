@@ -48,7 +48,7 @@
     <div class="container">
       <div class="row g-3 my-5 flex-lg-row-reverse">
         <div class="col-12 col-lg-6 text-brown">
-          <div class="border border-2 p-5">
+          <div class="border border-2 p-3 p-md-5">
             <div class="row row-cols-1 g-5">
               <div class="col">
                 <h2 class="fs-3"><i class="bi bi-flower3"></i>購物清單</h2>
@@ -81,28 +81,30 @@
                   <table class="mt-3 w-100">
                     <tbody>
                       <tr>
-                        <td style="width: 40%">共 {{ cartQty }} 筆商品</td>
-                        <td class="text-end p-2" style="width: 25%">商品金額</td>
-                        <td class="text-end" style="width: 35%">
+                        <td class="text-end py-2" colspan="3">共 {{ cartQty }} 筆商品</td>
+                      </tr>
+                      <tr>
+                        <td class="text-end py-2" colspan="2">商品金額</td>
+                        <td class="text-end w-50">
                           NT$ {{ $filters.currency(cart.total) }}
                         </td>
                       </tr>
                       <tr>
-                        <td class="text-end p-2" colspan="2">運費總計</td>
-                        <td class="text-end" style="width: 35%">
+                        <td class="text-end py-2" colspan="2">運費總計</td>
+                        <td class="text-end w-50">
                           NT$ {{ $filters.currency(deliveryFee) }}
                         </td>
                       </tr>
                       <tr class="text-success">
-                        <td class="text-end p-2" colspan="2">優惠折扣</td>
-                        <td class="text-end" style="width: 35%">
+                        <td class="text-end py-2" colspan="2">優惠折扣</td>
+                        <td class="text-end w-50">
                           - NT$
                           {{ $filters.currency(cart.total - cart.final_total) }}
                         </td>
                       </tr>
                       <tr class="border-top border-brown">
-                        <td class="text-end p-2" colspan="2">總計金額</td>
-                        <td class="text-end" style="width: 35%">
+                        <td class="text-end py-2" colspan="2">總計金額</td>
+                        <td class="text-end w-50">
                           NT$ {{ $filters.currency(cart.final_total) }}
                         </td>
                       </tr>
@@ -114,7 +116,7 @@
           </div>
         </div>
         <div class="col-12 col-lg-6 text-brown">
-          <div class="border border-2 p-5 h-100">
+          <div class="border border-2 p-3 p-md-5 h-100">
             <div class="row g-5">
               <div class="col-12">
                 <h2 class="fs-3"><i class="bi bi-flower3"></i>收件人資料</h2>
@@ -123,7 +125,7 @@
                   v-slot="{ errors }"
                   @submit="createOrder">
                   <div class="col">
-                    <label for="userName" class="form-label">收件人姓名</label>
+                    <label for="userName" class="form-label">收件人姓名*</label>
                     <VField
                       type="text"
                       name="姓名"
@@ -140,7 +142,7 @@
                     ></ErrorMessage>
                   </div>
                   <div class="col">
-                    <label for="userEmail" class="form-label">Email</label>
+                    <label for="userEmail" class="form-label">Email*</label>
                     <VField
                       type="email"
                       name="Email"
@@ -157,7 +159,7 @@
                     ></ErrorMessage>
                   </div>
                   <div class="col">
-                    <label for="userTel" class="form-label">收件人電話</label>
+                    <label for="userTel" class="form-label">收件人電話*</label>
                     <VField
                       type="tel"
                       name="電話"
@@ -174,7 +176,7 @@
                     ></ErrorMessage>
                   </div>
                   <div class="col">
-                    <label for="userAddress" class="form-label">收件人地址</label>
+                    <label for="userAddress" class="form-label">收件人地址*</label>
                     <VField
                       type="text"
                       name="地址"
@@ -191,7 +193,7 @@
                     ></ErrorMessage>
                   </div>
                   <div class="col">
-                    <label for="userPay" class="form-label">付款方式</label>
+                    <label for="userPay" class="form-label">付款方式*</label>
                     <VField
                       id="userPay"
                       name="付款方式"
@@ -261,23 +263,36 @@ export default {
     getCart () {
       const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart`
       this.isLoading = true
-      this.axios.get(url).then((res) => {
-        if (res.data.success) {
-          this.cart = res.data.data
+      this.axios.get(url)
+        .then((res) => {
+          if (res.data.success) {
+            this.cart = res.data.data
+            this.isLoading = false
+            this.cartQty = res.data.data.carts.length
+          }
+        })
+        .catch((error) => {
           this.isLoading = false
-          this.cartQty = res.data.data.carts.length
-          console.log(res)
-        }
-      })
+          this.emitter.emit('push-message', {
+            style: 'danger',
+            title: error.response.data.message
+          })
+        })
     },
     createOrder () {
       const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/order`
       const order = this.from
-      this.axios.post(url, { data: order }).then((res) => {
-        console.log(res)
-        this.from = {}
-        this.$router.push(`/checkout/${res.data.orderId}`)
-      })
+      this.axios.post(url, { data: order })
+        .then((res) => {
+          this.from = {}
+          this.$router.push(`/checkout/${res.data.orderId}`)
+        })
+        .catch((error) => {
+          this.emitter.emit('push-message', {
+            style: 'danger',
+            title: error.response.data.message
+          })
+        })
     }
   },
   created () {

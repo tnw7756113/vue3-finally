@@ -40,14 +40,14 @@
             <p class="text-brown fs-5">{{ product.description }}</p>
           </div>
           <div class="mt-5 d-flex justify-content-end justify-content-md-between">
-            <button @click.prevent="addFave(product)"
+            <button type="button" @click.prevent="addFave(product)"
               :class="{ 'btn-heart-active': faveList.some((i) => {
                       return i === product.id
                     })}"
               class="btn-heart me-2">
               <i class="bi bi-suit-heart-fill"></i>
             </button>
-            <button @click="addCart(product.id, qty)" class="btn btn-outline-brown btn-add-cart">
+            <button type="button" @click="addCart(product.id, qty)" class="btn btn-outline-brown btn-add-cart">
               <i class="bi bi-cart4 me-1"></i>加入購物車
             </button>
           </div>
@@ -164,13 +164,21 @@ export default {
     getProduct () {
       this.isLoading = true
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/product/${this.id}`
-      this.axios.get(api).then((res) => {
-        if (res.data.success) {
-          this.product = res.data.product
-          this.filtersMaybeLike()
+      this.axios.get(api)
+        .then((res) => {
+          if (res.data.success) {
+            this.product = res.data.product
+            this.filtersMaybeLike()
+            this.isLoading = false
+          }
+        })
+        .catch((error) => {
           this.isLoading = false
-        }
-      })
+          this.emitter.emit('push-message', {
+            style: 'danger',
+            title: error.response.data.message
+          })
+        })
     },
     addFave (item) {
       this.isLoading = true
@@ -195,7 +203,6 @@ export default {
       }
       saveFave.saveFavorite(this.faveList)
       this.emitter.emit('update-fave', this.faveList)
-      console.log(this.faveList)
     },
     addCart (id, qty) {
       this.isLoading = true
@@ -207,24 +214,38 @@ export default {
       this.axios.post(api, { data: cart })
         .then((res) => {
           if (res.data.success) {
-            console.log(res.data)
             this.emitter.emit('update-cart', id)
             this.isLoading = false
             this.$httpMessageStatus(res, '加入購物車')
           }
         })
+        .catch((error) => {
+          this.isLoading = false
+          this.emitter.emit('push-message', {
+            style: 'danger',
+            title: error.response.data.message
+          })
+        })
     },
     filtersMaybeLike () {
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/products/all`
-      this.axios.get(api).then((res) => {
-        if (res.data.success) {
-          this.filterProduct = res.data.products.filter((item) => {
-            return item.category === this.product.category && item.id !== this.product.id
+      this.axios.get(api)
+        .then((res) => {
+          if (res.data.success) {
+            this.filterProduct = res.data.products.filter((item) => {
+              return item.category === this.product.category && item.id !== this.product.id
+            })
+            this.randomNum = this.filterProduct.length
+            this.randomProduct()
+          }
+        })
+        .catch((error) => {
+          this.isLoading = false
+          this.emitter.emit('push-message', {
+            style: 'danger',
+            title: error.response.data.message
           })
-          this.randomNum = this.filterProduct.length
-          this.randomProduct()
-        }
-      })
+        })
     },
     randomProduct () {
       this.maybeLike = this.filterProduct.sort(() => Math.random() - 0.5)

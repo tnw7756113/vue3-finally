@@ -1,9 +1,13 @@
 <template>
-  <LoadingView :active="isLoading"></LoadingView>
-  <FrontNavbar></FrontNavbar>
-  <ToastMessages></ToastMessages>
-  <router-view></router-view>
-  <FrontFooter></FrontFooter>
+  <div class="wrapper">
+    <LoadingView :active="isLoading"></LoadingView>
+    <FrontNavbar/>
+    <ToastMessages/>
+    <div class="router-view">
+      <router-view/>
+    </div>
+    <FrontFooter/>
+  </div>
 </template>
 
 <script>
@@ -26,6 +30,16 @@ export default {
       emitter
     }
   }
-
 }
 </script>
+
+<style>
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+.router-view {
+  flex: 1;
+}
+</style>

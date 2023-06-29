@@ -10,25 +10,31 @@
             <h2>聯絡方式</h2>
             <li class="py-2"><i class="bi bi-geo-alt-fill me-1"></i>果然市菓然路66號-1</li>
             <li class="py-2"><i class="bi bi-clock-fill me-1"></i>周一至周六 10：30 - 21：30</li>
-            <li class="py-2"><i class="bi bi-envelope-fill me-1"></i>example@gmail.com</li>
-            <li class="py-2"><i class="bi bi-telephone-fill me-1"></i>07-7766123</li>
+            <li class="py-2">
+              <i class="bi bi-envelope-fill me-1"></i>
+              <a class="text-green-light" href="mailto:">example@gmail.com</a>
+            </li>
+            <li class="py-2">
+              <i class="bi bi-telephone-fill me-1"></i>
+              <a class="text-green-light" href="tel:+">07-7766123</a>
+            </li>
           </ol>
         </div>
         <div class="col-10 col-sm-8 col-md-4 p-3">
           <ul class="px-0" style="list-style-type: none;">
             <h2>關於我們</h2>
             <li class="py-1">
-              <router-link to="/about" class="text-black text-decoration-none">
+              <router-link to="/about" class="text-black">
                 <button class="btn btn-arrow bi bi-arrow-right-circle p-0"> 關於我們</button>
               </router-link>
             </li>
             <li class="py-1">
-              <router-link to="/productList" class="text-black text-decoration-none">
+              <router-link to="/productList" class="text-black">
                 <button class="btn btn-arrow bi bi-arrow-right-circle p-0"> 產品列表</button>
               </router-link>
             </li>
             <li class="py-1">
-              <router-link to="/faq" class="text-black text-decoration-none">
+              <router-link to="/faq" class="text-black">
                 <button class="btn btn-arrow bi bi-arrow-right-circle p-0"> 常見問題</button>
               </router-link>
             </li>

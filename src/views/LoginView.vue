@@ -26,16 +26,17 @@
                 v-model="user.password"/>
             </div>
             <div class="text-end mt-4">
-              <button @click="backToIndex" class="btn btn-brown btn-block me-2">返回</button>
-              <button @click="signIn" class="btn btn-brown btn-block">登入</button>
+              <button type="button" @click="backToIndex" class="btn btn-brown btn-block me-2">返回</button>
+              <button type="button" @click="signIn" class="btn btn-brown btn-block">登入</button>
             </div>
         </div>
       </form>
-  </div>
+    </div>
   </section>
 </template>
 
 <script>
+
 export default {
   data () {
     return {
@@ -50,9 +51,8 @@ export default {
     signIn () {
       this.isLoading = true
       const api = `${process.env.VUE_APP_API}admin/signin`
-      this.$http.post(api, this.user)
+      this.axios.post(api, this.user)
         .then((res) => {
-          console.log(res)
           if (res.data.success) {
             this.isLoading = false
             const token = res.data.token
@@ -64,6 +64,13 @@ export default {
             this.isLoading = false
             this.$httpMessageStatus(res, '登入')
           }
+        })
+        .catch((error) => {
+          this.isLoading = false
+          this.emitter.emit('push-message', {
+            style: 'danger',
+            title: error.response.data.message
+          })
         })
     },
     backToIndex () {

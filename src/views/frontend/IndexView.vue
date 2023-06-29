@@ -88,7 +88,7 @@
           </div>
           <div class="col-10 col-md-6">
             <div class="input-group">
-              <input id="couponCode" type="text" class="form-control text-brown fw-bold" value="VIP888" disabled aria-describedby="button-addon2">
+              <input ref="couponCode" type="text" class="form-control text-brown fw-bold" value="VIP888" disabled aria-describedby="button-addon2">
               <button class="btn btn-brown" type="button" @click="copyCouponCode"><i class="bi bi-files me-1"></i>複製</button>
             </div>
           </div>
@@ -109,7 +109,7 @@
         <div class="col mt-3">
           <swiper
             :slidesPerView="1"
-            :spaceBetween="20"
+            :spaceBetween="10"
             :freeMode="false"
             :loop="true"
             :autoplay="{
@@ -119,23 +119,23 @@
             :breakpoints="{
               '576': {
                 slidesPerView: 2,
-                spaceBetween: 20,
+                spaceBetween: 10,
               },
               '768': {
                 slidesPerView: 3,
-                spaceBetween: 30,
+                spaceBetween: 10,
               },
               '992': {
                 slidesPerView: 4,
-                spaceBetween: 30,
+                spaceBetween: 10,
               },
             }"
             :modules="modules" class="swiper-product">
-            <swiper-slide v-for="item in randomDate" :key="item.id" class="swiper-slide-product">
+            <swiper-slide v-for="item in randomDate" :key="item.id" class="swiper-slide-product p-1">
               <router-link :to="`/productList/${item.id}`" class="text-decoration-none">
-                <div class="card border-0 shadow product-card">
+                <div class="card border-0 shadow-sm product-card">
                   <div class="overflow-hidden effect">
-                    <img :src="item.imageUrl" class="card-img-top w-100" :alt="item.title">
+                    <img :src="item.imageUrl" class="w-100" :alt="item.title">
                     <p class="fs-6 text-white">View more</p>
                   </div>
                   <div class="card-body text-brown">
@@ -193,21 +193,28 @@ export default {
   methods: {
     getProduct () {
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/products/all`
-      this.axios.get(api).then((res) => {
-        if (res.data.success) {
-          console.log(res.data)
-          this.products = res.data.products
-          this.randomNum = res.data.products.length
-          this.randomProduct()
-        }
-      })
+      this.axios.get(api)
+        .then((res) => {
+          if (res.data.success) {
+            this.products = res.data.products
+            this.randomNum = res.data.products.length
+            this.randomProduct()
+          }
+        })
+        .catch((error) => {
+          this.isLoading = false
+          this.emitter.emit('push-message', {
+            style: 'danger',
+            title: error.response.data.message
+          })
+        })
     },
     randomProduct () {
       this.randomDate = this.products.sort(() => Math.random() - 0.5)
       this.randomDate.splice(0, parseInt(this.randomNum) - 8)
     },
     copyCouponCode () {
-      const copyCode = document.getElementById('couponCode')
+      const copyCode = this.$refs.couponCode
       navigator.clipboard.writeText(copyCode.value)
         .then(() => Swal.fire({
           icon: 'success',

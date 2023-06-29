@@ -40,9 +40,9 @@
             </td>
             <td>
               <div class="btn-group">
-                <button class="btn btn-outline-primary btn-sm"
+                <button type="button" class="btn btn-outline-primary btn-sm"
                         @click="openOrderModal(item)">檢視</button>
-                <button class="btn btn-outline-danger btn-sm"
+                <button type="button" class="btn btn-outline-danger btn-sm"
                         @click="openDeleteModal(item)">刪除</button>
               </div>
             </td>
@@ -82,11 +82,17 @@ export default {
       this.axios.get(url)
         .then((res) => {
           if (res.data.success) {
-            console.log(res)
             this.orders = res.data.orders
             this.pagination = res.data.pagination
             this.isLoading = false
           }
+        })
+        .catch((error) => {
+          this.isLoading = false
+          this.emitter.emit('push-message', {
+            style: 'danger',
+            title: error.response.data.message
+          })
         })
     },
     openOrderModal (item) {
@@ -103,24 +109,38 @@ export default {
         is_paid: item.is_paid
       }
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/order/${item.id}`
-      this.axios.put(api, { data: paid }).then((res) => {
-        this.isLoading = false
-        console.log(res)
-        this.$refs.orderModal.hideModal()
-        this.$httpMessageStatus(res, '更新付款狀態')
-        this.getOrders()
-      })
+      this.axios.put(api, { data: paid })
+        .then((res) => {
+          this.isLoading = false
+          this.$refs.orderModal.hideModal()
+          this.$httpMessageStatus(res, '更新付款狀態')
+          this.getOrders()
+        })
+        .catch((error) => {
+          this.isLoading = false
+          this.emitter.emit('push-message', {
+            style: 'danger',
+            title: error.response.data.message
+          })
+        })
     },
     delOrder () {
       const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/order/${this.tempOrder.id}`
       this.isLoading = true
-      this.axios.delete(url).then((res) => {
-        console.log(res)
-        this.isLoading = false
-        this.$refs.deleteModal.hideModal()
-        this.$httpMessageStatus(res, '刪除訂單')
-        this.getOrders()
-      })
+      this.axios.delete(url)
+        .then((res) => {
+          this.isLoading = false
+          this.$refs.deleteModal.hideModal()
+          this.$httpMessageStatus(res, '刪除訂單')
+          this.getOrders()
+        })
+        .catch((error) => {
+          this.isLoading = false
+          this.emitter.emit('push-message', {
+            style: 'danger',
+            title: error.response.data.message
+          })
+        })
     }
   },
   created () {

@@ -38,9 +38,9 @@
           </td>
           <td class="text-nowrap">
             <div class="btn-group">
-              <button class="btn btn-outline-primary btn-sm"
+              <button type="button" class="btn btn-outline-primary btn-sm"
               @click="openModal(false, item)">編輯</button>
-              <button class="btn btn-outline-danger btn-sm"
+              <button type="button" class="btn btn-outline-danger btn-sm"
               @click="deleteModal(item)">刪除</button>
             </div>
           </td>
@@ -89,10 +89,16 @@ export default {
         .then((res) => {
           this.isLoading = false
           if (res.data.success) {
-            console.log(res.data)
             this.products = res.data.products
             this.pagination = res.data.pagination
           }
+        })
+        .catch((error) => {
+          this.isLoading = false
+          this.emitter.emit('push-message', {
+            style: 'danger',
+            title: error.response.data.message
+          })
         })
     },
     openModal (isNew, item) {
@@ -123,24 +129,38 @@ export default {
         httpMethod = 'put'
       }
       const productComponet = this.$refs.productModal
-      this.axios[httpMethod](api, { data: this.tempProduct }).then((res) => {
-        this.getProducts()
-        this.isLoading = false
-        console.log(res)
-        productComponet.hideModal()
-        this.$httpMessageStatus(res, '更新產品')
-      })
+      this.axios[httpMethod](api, { data: this.tempProduct })
+        .then((res) => {
+          this.getProducts()
+          this.isLoading = false
+          productComponet.hideModal()
+          this.$httpMessageStatus(res, '更新產品')
+        })
+        .catch((error) => {
+          this.isLoading = false
+          this.emitter.emit('push-message', {
+            style: 'danger',
+            title: error.response.data.message
+          })
+        })
     },
     deleteProduct () {
       this.isLoading = true
       const apiDelete = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/product/${this.tempProduct.id}`
       const deleteCompomet = this.$refs.deleteModal
-      this.axios.delete(apiDelete, { data: this.tempProduct }).then((res) => {
-        this.isLoading = false
-        console.log(res)
-        deleteCompomet.hideModal()
-        this.getProducts()
-      })
+      this.axios.delete(apiDelete, { data: this.tempProduct })
+        .then((res) => {
+          this.isLoading = false
+          deleteCompomet.hideModal()
+          this.getProducts()
+        })
+        .catch((error) => {
+          this.isLoading = false
+          this.emitter.emit('push-message', {
+            style: 'danger',
+            title: error.response.data.message
+          })
+        })
     }
   },
   created () {

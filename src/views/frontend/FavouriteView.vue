@@ -57,11 +57,11 @@
                 </td>
                 <td class="align-middle text-end">
                   <div class="p-0">
-                    <button @click.prevent="addCart(item.id, 1)"
+                    <button type="button" @click.prevent="addCart(item.id, 1)"
                     class="btn-cart rounded-circle p-0 me-2">
                     <i class="bi bi-cart4"></i>
                     </button>
-                    <button @click.prevent="delFave(item)"
+                    <button type="button" @click.prevent="delFave(item)"
                     class="btn-trash rounded-circle p-0 me-1">
                     <i class="bi bi-trash"></i>
                     </button>
@@ -92,13 +92,20 @@ export default {
     getFave () {
       this.isLoading = true
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/products/all`
-      this.axios.get(api).then((res) => {
-        if (res.data.success) {
+      this.axios.get(api)
+        .then((res) => {
+          if (res.data.success) {
+            this.isLoading = false
+            this.faveProduct = res.data.products.filter((item) => this.faveList.includes(item.id))
+          }
+        })
+        .catch((error) => {
           this.isLoading = false
-          this.faveProduct = res.data.products.filter((item) => this.faveList.includes(item.id))
-          console.log(this.faveProduct)
-        }
-      })
+          this.emitter.emit('push-message', {
+            style: 'danger',
+            title: error.response.data.message
+          })
+        })
     },
     updateFave () {
       this.faveList = saveFave.getFavorite()
@@ -127,22 +134,22 @@ export default {
       this.axios.post(api, { data: cart })
         .then((res) => {
           if (res.data.success) {
-            console.log(res.data)
             this.emitter.emit('update-cart', id)
-            this.faveList.splice(this.faveList.indexOf(id), 1)
             this.isLoading = false
-            saveFave.saveFavorite(this.faveList)
-            this.emitter.emit('update-fave', this.faveList)
             this.getFave()
             this.$httpMessageStatus(res, '加入購物車')
           }
         })
+        .catch((error) => {
+          this.isLoading = false
+          this.emitter.emit('push-message', {
+            style: 'danger',
+            title: error.response.data.message
+          })
+        })
     }
   },
   created () {
-    this.getFave()
-  },
-  mounted () {
     this.emitter.on('update-fave', this.updateFave)
     this.getFave()
   }

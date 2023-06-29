@@ -43,42 +43,40 @@
   </section>
   <section v-else class="my-6">
     <div class="container">
-      <div class="border border-2 p-2 p-lg-5">
-        <div class="row g-5 mx-0">
-          <div class="col-12 p-0 table-responsive">
+      <div class="border border-2 p-3">
+        <div class="row row-cols-1 g-5 mx-0 justify-content-center">
+          <div class="col-12 col-lg-8 py-3 px-0 table-responsive">
             <div class="px-2 text-brown">
               <h2 class="fs-3"><i class="bi bi-flower3"></i>購物清單</h2>
             </div>
             <table class="table align-middle mt-3">
               <thead class="table-beige text-brown text-nowrap">
                 <tr>
-                    <th style="width: 50px;"></th>
-                    <th class="ps-3" style="width: 75px;">商品</th>
-                    <th style="width: 200px;"></th>
-                    <th class="text-end" style="width: 100px;">單價</th>
-                    <th class="text-end" style="width: 100px;">數量</th>
-                    <th class="text-end" style="width: 100px;">小計</th>
+                  <th style="width: 50px;"></th>
+                  <th class="ps-3" style="width: 75px;">商品</th>
+                  <th style="width: 200px;"></th>
+                  <th class="text-end" style="width: 100px;">單價</th>
+                  <th class="text-end" style="width: 100px;">數量</th>
+                  <th class="text-end" style="width: 100px;">小計</th>
                 </tr>
               </thead>
               <tbody class="text-nowrap text-brown" v-for="item in cart.carts" :key="item.id">
                 <tr>
                   <td>
-                      <button class="btn btn-outline-red btn-sm"
-                      @click="delCart(item.product.title, item.id)">
-                          <i class="bi bi-trash3-fill"></i>
-                      </button>
+                    <button type="button" class="btn btn-outline-red btn-sm"
+                    @click="delCart(item.product.title, item.id)">
+                        <i class="bi bi-trash3-fill"></i>
+                    </button>
                   </td>
                   <td>
-                      <img :src="item.product.imageUrl" alt="item.product.title"
-                      style="width: 75px; height: 50px; background-size: cover; background-position: center">
+                    <img :src="item.product.imageUrl" alt="item.product.title"
+                    style="width: 75px; height: 50px; background-size: cover; background-position: center">
                   </td>
-                  <td colspan="4">{{ item.product.title }}</td>
-                </tr>
-                <tr>
-                  <td colspan="4" class="text-end">NT$ {{ item.product.price }}</td>
-                  <td class="d-flex justify-content-end">
+                  <td>{{ item.product.title }}</td>
+                  <td class="text-end">NT$ {{ item.product.price }}</td>
+                  <td>
                     <input type="number"
-                        class="form-control form-control-sm"
+                        class="form-control form-control-sm ms-auto"
                         v-model.number="item.qty"
                         min="1" max="10"
                         @change="updateCart(item, item.qty)"
@@ -91,7 +89,7 @@
               </tbody>
             </table>
           </div>
-          <div class="col p-0 d-flex flex-column">
+          <div class="col-12 col-lg-8 p-0 d-flex flex-column">
             <div class="px-2 text-brown">
               <h2 class="fs-3"><i class="bi bi-flower3"></i>購物車總計</h2>
             </div>
@@ -103,29 +101,31 @@
                 @click="addCouponCode()">套用優惠卷</button>
               </div>
             </div>
-            <table class="mt-3">
+            <table class="mt-1">
               <tbody class="text-brown">
                 <tr>
-                  <td style="width: 40%;">共 {{ cartQty }} 筆商品</td>
-                  <td class="text-end p-2" style="width: 25%;">商品金額</td>
-                  <td class="text-end" style="width: 35%;">NT$ {{ $filters.currency(cart.total) }}</td>
+                  <td class="text-end py-2" colspan="3">共 {{ cartQty }} 筆商品</td>
                 </tr>
                 <tr>
-                  <td class="text-end p-2" colspan="2">運費</td>
-                  <td class="text-end" style="width: 35%;">NT$ {{ $filters.currency(deliveryFee) }}</td>
+                  <td class="text-end py-2" colspan="2">商品金額</td>
+                  <td class="text-end w-50">NT$ {{ $filters.currency(cart.total) }}</td>
+                </tr>
+                <tr>
+                  <td class="text-end py-2" colspan="2">運費</td>
+                  <td class="text-end w-50">NT$ {{ $filters.currency(deliveryFee) }}</td>
                 </tr>
                 <tr class="text-success">
-                  <td class="text-end p-2" colspan="2">優惠折扣</td>
-                  <td class="text-end" style="width: 35%;">- NT$ {{ $filters.currency(cart.total - cart.final_total) }}</td>
+                  <td class="text-end py-2" colspan="2">優惠折扣</td>
+                  <td class="text-end w-50">- NT$ {{ $filters.currency(cart.total - cart.final_total) }}</td>
                 </tr>
                 <tr class="border-top border-brown">
-                  <td class="text-end p-2" colspan="2">總計金額</td>
-                  <td class="text-end" style="width: 35%;">NT$ {{ $filters.currency(cart.final_total) }}</td>
+                  <td class="text-end py-2" colspan="2">總計金額</td>
+                  <td class="text-end w-50">NT$ {{ $filters.currency(cart.final_total) }}</td>
                 </tr>
               </tbody>
             </table>
             <div class="mt-5 col-12 col-md-2 mx-auto">
-              <button @click="toCheckInfo" class="btn btn-brown w-100">填寫資料</button>
+              <button type="button" @click="toCheckInfo" class="btn btn-brown w-100">填寫資料</button>
             </div>
           </div>
         </div>
@@ -152,41 +152,63 @@ export default {
     getCard () {
       const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart`
       this.isLoading = true
-      this.axios.get(url).then((res) => {
-        if (res.data.success) {
-          this.cart = res.data.data
+      this.axios.get(url)
+        .then((res) => {
+          if (res.data.success) {
+            this.cart = res.data.data
+            this.isLoading = false
+            this.cartQty = res.data.data.carts.length
+          }
+        })
+        .catch((error) => {
           this.isLoading = false
-          this.cartQty = res.data.data.carts.length
-          console.log(res)
-        }
-      })
+          this.emitter.emit('push-message', {
+            style: 'danger',
+            title: error.response.data.message
+          })
+        })
     },
     updateCart (item, qty) {
-      console.log('chahge')
       const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart/${item.id}`
       this.isLoading = true
       const cart = {
         product_id: item.product_id,
         qty
       }
-      this.axios.put(url, { data: cart }).then((res) => {
-        if (res.data.success) {
+      this.axios.put(url, { data: cart })
+        .then((res) => {
+          if (res.data.success) {
+            this.isLoading = false
+            this.getCard()
+          }
+        })
+        .catch((error) => {
           this.isLoading = false
-          this.getCard()
-        }
-      })
+          this.emitter.emit('push-message', {
+            style: 'danger',
+            title: error.response.data.message
+          })
+        })
     },
     delCart (item, id) {
       const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart/${id}`
       this.isLoading = true
-      this.axios.delete(url).then((res) => {
-        if (res.data.success) {
+      this.axios.delete(url)
+        .then((res) => {
+          if (res.data.success) {
+            this.isLoading = false
+            this.emitter.emit('update-cart', id)
+            this.$httpMessageStatus(res, `已將${item}移除購物車`)
+            this.getCard()
+          }
+        })
+        .catch((error) => {
           this.isLoading = false
-          this.emitter.emit('update-cart', id)
-          this.$httpMessageStatus(res, `已將${item}移除購物車`)
-          this.getCard()
-        }
-      })
+          this.emitter.emit('push-message', {
+            style: 'danger',
+            title: error.response.data.message
+          })
+        })
     },
     addCouponCode () {
       const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/coupon`
@@ -194,16 +216,24 @@ export default {
         code: this.couponCode
       }
       this.isLoading = true
-      this.axios.post(url, { data: coupon }).then((res) => {
-        if (res.data.success) {
+      this.axios.post(url, { data: coupon })
+        .then((res) => {
+          if (res.data.success) {
+            this.isLoading = false
+            this.$httpMessageStatus(res, '套用優惠卷')
+            this.getCard()
+          } else {
+            this.isLoading = false
+            this.$httpMessageStatus(res, '套用優惠卷')
+          }
+        })
+        .catch((error) => {
           this.isLoading = false
-          this.$httpMessageStatus(res, '套用優惠卷')
-          this.getCard()
-        } else {
-          this.isLoading = false
-          this.$httpMessageStatus(res, '套用優惠卷')
-        }
-      })
+          this.emitter.emit('push-message', {
+            style: 'danger',
+            title: error.response.data.message
+          })
+        })
     },
     toCheckInfo () {
       this.$router.push('/userCheckInfo')

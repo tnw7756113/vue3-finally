@@ -1,8 +1,8 @@
 <template>
   <LoadingView :active="isLoading"></LoadingView>
-  <Navbar></Navbar>
+  <Navbar/>
   <div class="container-fluid mt-3">
-    <ToastMessages></ToastMessages>
+    <ToastMessages/>
     <router-view/>
   </div>
 </template>
@@ -31,12 +31,19 @@ export default {
     const token = document.cookie.replace(/(?:(?:^|.*;\s*)hexToken\s*=\s*([^;]*).*$)|^.*$/, '$1')
     this.axios.defaults.headers.common.Authorization = token
     const api = `${process.env.VUE_APP_API}api/user/check`
-    this.axios.post(api, this.user).then((res) => {
-      console.log(res)
-      if (!res.data.success) {
-        this.$router.push('/login')
-      }
-    })
+    this.axios.post(api, this.user)
+      .then((res) => {
+        if (!res.data.success) {
+          this.$router.push('/login')
+        }
+      })
+      .catch((error) => {
+        this.isLoading = false
+        this.emitter.emit('push-message', {
+          style: 'danger',
+          title: error.response.data.message
+        })
+      })
   }
 }
 </script>
