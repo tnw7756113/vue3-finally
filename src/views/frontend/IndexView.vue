@@ -107,7 +107,7 @@
           </div>
         </div>
         <div class="col mt-3">
-          <swiper
+          <Swiper
             :slidesPerView="1"
             :spaceBetween="10"
             :freeMode="false"
@@ -131,7 +131,7 @@
               },
             }"
             :modules="modules" class="swiper-product">
-            <swiper-slide v-for="item in randomDate" :key="item.id" class="swiper-slide-product p-1">
+            <Swiper-slide v-for="item in randomDate" :key="item.id" class="swiper-slide-product p-1">
               <router-link :to="`/productList/${item.id}`" class="text-decoration-none">
                 <div class="card border-0 shadow-sm product-card">
                   <div class="overflow-hidden effect">
@@ -156,8 +156,8 @@
                   </div>
                 </div>
               </router-link>
-            </swiper-slide>
-          </swiper>
+            </Swiper-slide>
+          </Swiper>
         </div>
       </div>
     </div>
@@ -202,7 +202,6 @@ export default {
           }
         })
         .catch((error) => {
-          this.isLoading = false
           this.emitter.emit('push-message', {
             style: 'danger',
             title: error.response.data.message

@@ -1,5 +1,5 @@
 <template>
-  <LoadingView :active="isLoading"></LoadingView>
+  <LoadingView :active="isLoading"/>
   <section class="mt-6">
     <div class="banner d-flex flex-column justify-content-center align-items-center">
       <div class="text-center">

@@ -53,8 +53,7 @@ export default {
   data () {
     return {
       faveList: saveFave.getFavorite() || [],
-      cartQty: '',
-      isLoading: false
+      cartQty: ''
     }
   },
   inject: {

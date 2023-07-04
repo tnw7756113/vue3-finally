@@ -1,5 +1,5 @@
 <template>
-  <LoadingView :active="isLoading"></LoadingView>
+  <LoadingView :active="isLoading"/>
   <div class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true"
   ref="modal">
     <div class="modal-dialog modal-xl" role="document">

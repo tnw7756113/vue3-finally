@@ -12,17 +12,17 @@
             <li class="py-2"><i class="bi bi-clock-fill me-1"></i>周一至周六 10：30 - 21：30</li>
             <li class="py-2">
               <i class="bi bi-envelope-fill me-1"></i>
-              <a class="text-green-light" href="mailto:">example@gmail.com</a>
+              <a class="footer-link-text" href="mailto:example@gmail.com">example@gmail.com</a>
             </li>
             <li class="py-2">
               <i class="bi bi-telephone-fill me-1"></i>
-              <a class="text-green-light" href="tel:+">07-7766123</a>
+              <a class="footer-link-text" href="tel:+886-7-7766123">07-7766123</a>
             </li>
           </ol>
         </div>
         <div class="col-10 col-sm-8 col-md-4 p-3">
           <ul class="px-0" style="list-style-type: none;">
-            <h2>關於我們</h2>
+            <h2>關於菓然</h2>
             <li class="py-1">
               <router-link to="/about" class="text-black">
                 <button class="btn btn-arrow bi bi-arrow-right-circle p-0"> 關於我們</button>

@@ -1,10 +1,10 @@
 <template>
   <div class="wrapper">
-    <LoadingView :active="isLoading"></LoadingView>
+    <LoadingView :active="isLoading"/>
     <FrontNavbar/>
     <ToastMessages/>
     <div class="router-view">
-      <router-view/>
+      <Router-view/>
     </div>
     <FrontFooter/>
   </div>

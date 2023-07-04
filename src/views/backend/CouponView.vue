@@ -1,5 +1,5 @@
 <template>
-  <LoadingView :active="isLoading"></LoadingView>
+  <LoadingView :active="isLoading"/>
   <div class="table-responsive">
     <div class="text-end mt-4">
       <button type="button" class="btn btn-brown" @click="openCouponModal(true)">
@@ -128,11 +128,11 @@ export default {
       }
     },
     delCoupon () {
-      this.Loading = true
+      this.isLoading = true
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/coupon/${this.tempCoupon.id}`
       this.axios.delete(api, { data: this.tempCoupon })
         .then((res) => {
-          this.Loading = false
+          this.isLoading = false
           this.$refs.deleteModal.hideModal()
           this.getCoupons()
         })

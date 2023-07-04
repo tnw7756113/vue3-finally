@@ -1,9 +1,9 @@
 <template>
-  <LoadingView :active="isLoading"></LoadingView>
+  <LoadingView :active="isLoading"/>
   <Navbar/>
   <div class="container-fluid mt-3">
     <ToastMessages/>
-    <router-view/>
+    <Router-view/>
   </div>
 </template>
 

@@ -1,5 +1,4 @@
 <template>
-  <LoadingView :active="isLoading"></LoadingView>
   <div class="modal fade"
     id="productModal"
     tabindex="-1"

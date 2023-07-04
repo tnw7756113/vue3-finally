@@ -1,5 +1,5 @@
 <template>
-  <LoadingView :active="isLoading"></LoadingView>
+  <LoadingView :active="isLoading"/>
   <section class="mt-7">
     <div class="container">
       <div class="row justify-content-center align-items-center position-relative mt-5">

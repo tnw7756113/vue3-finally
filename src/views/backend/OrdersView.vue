@@ -1,5 +1,5 @@
 <template>
-  <LoadingView :active="isLoading"></LoadingView>
+  <LoadingView :active="isLoading"/>
   <div class="table-responsive">
     <table class="table mt-4">
       <thead class="table-beige text-brown">
@@ -13,14 +13,14 @@
         </tr>
       </thead>
       <tbody>
-        <template v-for="(item, key) in orders" :key="key">
+        <template v-for="(item) in orders" :key="item.id">
           <tr v-if="orders.length" class="align-middle text-nowrap"
               :class="{'text-secondary': !item.is_paid}">
             <td>{{ $filters.date(item.create_at) }}</td>
             <td><span v-text="item.user.email" v-if="item.user"></span></td>
             <td>
               <ul class="list-unstyled">
-                <li v-for="(product, i) in item.products" :key="i">
+                <li v-for="(product) in item.products" :key="product.id">
                   {{ product.product.title }} 數量：{{ product.qty }}
                   {{ product.product.unit }}
                 </li>

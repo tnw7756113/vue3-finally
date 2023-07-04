@@ -1,5 +1,5 @@
 <template>
-  <LoadingView :active="isLoading"></LoadingView>
+  <LoadingView :active="isLoading"/>
   <div class="d-flex justify-content-end">
     <button class="btn btn-brown" type="button"
     @click="openModal(true)">新增產品項目</button>

@@ -6,6 +6,8 @@ import VueAxios from 'vue-axios'
 import Loading from 'vue3-loading-overlay'
 import 'vue3-loading-overlay/dist/vue3-loading-overlay.css'
 
+import 'bootstrap/dist/js/bootstrap.bundle.min.js'
+
 import { Form, Field, ErrorMessage, defineRule, configure } from 'vee-validate'
 import AllRules from '@vee-validate/rules'
 import { localize, setLocale } from '@vee-validate/i18n'
