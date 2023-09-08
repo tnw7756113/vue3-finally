@@ -1,21 +1,17 @@
-# project-vue3-finally
+# Vue電商網站 - 菓然
+實作出以Vue3來進行開發的電商網站，具備 RWD 響應式網頁，目前有前、後台、商品頁面與購物車等功能。
 
-## Project setup
-```
-npm install
-```
+## 使用技術
+- Vue3.js：資料處理與畫面上的渲染
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+- Vue Cli：開發管理專案
 
-### Compiles and minifies for production
-```
-npm run build
-```
+- Vue Router：建構路由
 
-### Lints and fixes files
-```
-npm run lint
-```
+- Axios：串接API
+
+- Bootstrap5：客製化樣式與協助規劃RWD版型
+
+- 建立元件：管理程式碼
+
+# 網頁連結
