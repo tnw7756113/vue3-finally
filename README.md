@@ -8,11 +8,11 @@
 
 - Vue Router：建構路由
 
-- Axios：串接API
+- Axios：串接後端API取得資料
 
 - Bootstrap5：客製化樣式與協助規劃RWD版型
 
 - 建立元件：管理程式碼
 
-## 網頁連結
+## 作品連結
 [菓然](https://tnw7756113.github.io/vue3-finally/)
